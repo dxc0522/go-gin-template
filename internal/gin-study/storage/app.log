@@ -1,0 +1,926 @@
+[2024-01-17 10:47:06.628]	local.info	gin-study/main.go:14	log init success!
+[2024-01-17 10:47:06.640]	local.error	bootstrap/db.go:50	mysql connect failed, err:	{"err": "Error 1045 (28000): Access denied for user 'root'@'172.17.0.1' (using password: YES)"}
+or user 'root'@'172.17.0.1' (using password: YES)
+
+
+[31m2024/01/17 10:47:10 [Recovery] 2024/01/17 - 10:47:10 panic recovered:
+POST /api/auth/info HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: c3aad261-5054-44f1-908f-abc559aa5e7c
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x1891f8b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:331 (0x1884527)
+	(*DB).Limit: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/finisher_api.go:119 (0x1886927)
+	(*DB).First: tx = db.Limit(1).Order(clause.OrderByColumn{
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:41 (0x1aff3fc)
+	(*userService).GetUserInfo: err = global.App.DB.First(&user, intId).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:32 (0x1b00db6)
+	Info: err, user := services.UserService.GetUserInfo(c.Keys["id"].(string))
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1accc39)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0088)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1accc39)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1adeae5)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1accc39)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc606)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc0db)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c2ed6)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcc98)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+[2024-01-17 10:47:45.193]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.209ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.605ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.858ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.196ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.289ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.032ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.741ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.994ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.361ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.540ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.984ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.325ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.293ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.852ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.201ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.982ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.908ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.108ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.073ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.738ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.829ms] [rows:-] SELECT DATABASE()
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.132ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/17 10:47:45 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.143ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+
+2024/01/17 10:47:57 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:41
+[2.781ms] [rows:1] SELECT * FROM `users` WHERE `users`.`id` = 1 AND `users`.`deleted_at` IS NULL ORDER BY `users`.`id` LIMIT 1
+
+2024/01/17 10:48:15 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/media.go:59
+[7.770ms] [rows:1] INSERT INTO `media` (`disk_type`,`src_type`,`src`,`created_at`,`updated_at`) VALUES ('local',1,'d2e57bae-d02f-4c76-a1c6-e1ab8e944de6.jpg','2024-01-17 10:48:15.132','2024-01-17 10:48:15.132')
+[2024-01-26 16:51:24.220]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.997ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[16.469ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[23.408ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.140ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.260ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[19.498ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[17.631ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.925ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.826ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[4.432ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.007ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.071ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.972ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.963ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.823ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[8.219ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.900ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.079ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.805ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[5.415ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.887ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.475ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:51:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.955ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+[2024-01-26 16:51:24.364]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+[2024-01-26 16:53:48.799]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.977ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[6.460ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.532ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.962ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.496ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.290ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.593ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.905ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.435ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.207ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.718ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.305ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.122ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.779ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.932ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.220ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.950ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.351ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.116ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.988ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.018ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.572ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:53:48 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.374ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+[2024-01-26 16:53:48.864]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+[2024-01-26 16:55:01.167]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.163ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[14.013ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[9.227ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.983ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.254ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.070ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[6.689ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.262ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.005ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[7.075ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.887ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.109ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.465ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.906ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.223ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.864ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.984ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.012ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.994ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.345ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.807ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.859ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:01 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.030ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+[2024-01-26 16:55:01.250]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+[2024-01-26 16:55:32.901]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.939ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[10.077ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[9.986ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.979ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.233ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.152ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[4.805ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.046ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.188ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[6.031ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.947ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.216ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.859ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.041ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.149ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.533ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.020ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.931ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.898ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.444ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.840ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.846ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:32 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.029ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+[2024-01-26 16:55:32.973]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+[2024-01-26 16:55:49.766]	local.info	gin-study/main.go:14	log init success!
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.930ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[4.240ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[6.820ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.824ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.873ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.896ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[10.492ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.104ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.555ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[4.758ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.887ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.626ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.663ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.939ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.921ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.168ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.872ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.859ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.911ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[4.710ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.620ms] [rows:-] SELECT DATABASE()
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.860ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/01/26 16:55:49 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.837ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+[2024-01-26 16:55:49.833]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+[2024-02-01 14:36:24.732]	local.info	gin-study/main.go:14	log init success!
+
+2024/02/01 14:36:24 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:46
+[error] failed to initialize database, got error dial tcp 127.0.0.1:3306: connect: connection refused
+[2024-02-01 14:36:24.733]	local.error	bootstrap/db.go:50	mysql connect failed, err:	{"err": "dial tcp 127.0.0.1:3306: connect: connection refused"}
+[2024-02-01 14:36:24.733]	local.error	bootstrap/redis.go:19	Redis connect ping failed, err:	{"err": "dial tcp 127.0.0.1:6379: connect: connection refused"}
+
+
+[31m2024/02/01 14:36:50 [Recovery] 2024/02/01 - 14:36:50 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: 7f6fde84-e6c0-4a8a-8f3b-757f228ba088
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x189220b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x18830a4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1aff371)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b00c4b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0308)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1aded65)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc886)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc35b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3156)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcf18)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+{"level":"local.info","ts":"[2024-02-01 14:38:26.101]","caller":"gin-study/main.go:14","msg":"log init success!"}
+
+2024/02/01 14:38:26 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:46
+[error] failed to initialize database, got error dial tcp 127.0.0.1:3306: connect: connection refused
+{"level":"local.error","ts":"[2024-02-01 14:38:26.104]","caller":"bootstrap/db.go:50","msg":"mysql connect failed, err:","err":"dial tcp 127.0.0.1:3306: connect: connection refused"}
+{"level":"local.error","ts":"[2024-02-01 14:38:26.104]","caller":"bootstrap/redis.go:19","msg":"Redis connect ping failed, err:","err":"dial tcp 127.0.0.1:6379: connect: connection refused"}
+
+
+[31m2024/02/01 14:38:28 [Recovery] 2024/02/01 - 14:38:28 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: 9ad8f691-e10e-4894-921a-8a499b714773
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x189220b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x18830a4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1aff371)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b00c4b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0308)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1aded65)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc886)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc35b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3156)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcf18)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+
+
+[31m2024/02/01 14:38:29 [Recovery] 2024/02/01 - 14:38:29 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: df78d6d5-6941-463b-8323-dd158dd8298d
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x189220b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x18830a4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1aff371)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b00c4b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0308)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1aded65)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc886)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc35b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3156)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcf18)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+
+
+[31m2024/02/01 15:02:26 [Recovery] 2024/02/01 - 15:02:26 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: 0b279555-a391-47fa-9be5-205946ed3573
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x189220b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x18830a4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1aff371)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b00c4b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0308)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1aded65)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc886)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc35b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3156)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcf18)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+
+
+[31m2024/02/01 15:02:27 [Recovery] 2024/02/01 - 15:02:27 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: de74fd2e-b507-4e8f-a2e5-cba58e616876
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x189220b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x18830a4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1aff371)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b00c4b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0308)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1aded65)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acceb9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1adc886)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adc35b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3156)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bcf18)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+{"level":"local.info","ts":"[2024-02-01 15:07:00.006]","caller":"gin-study/main.go:14","msg":"log init success!"}
+
+2024/02/01 15:07:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:46
+[error] failed to initialize database, got error dial tcp 127.0.0.1:3306: connect: connection refused
+{"level":"local.error","ts":"[2024-02-01 15:07:00.007]","caller":"bootstrap/db.go:50","msg":"mysql connect failed, err:","err":"dial tcp 127.0.0.1:3306: connect: connection refused"}
+{"level":"local.error","ts":"[2024-02-01 15:07:00.007]","caller":"bootstrap/redis.go:19","msg":"Redis connect ping failed, err:","err":"dial tcp 127.0.0.1:6379: connect: connection refused"}
+
+
+[31m2024/02/01 15:07:03 [Recovery] 2024/02/01 - 15:07:03 panic recovered:
+POST /api/auth/login HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Postman-Token: 126c3f50-6233-44f2-aa90-313e477ac911
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/gorm.go:399 (0x1892c2b)
+	(*DB).getInstance: if db.clone > 0 {
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/chainable_api.go:201 (0x1883ac4)
+	(*DB).Where: tx = db.getInstance()
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/services/user.go:31 (0x1affd91)
+	(*userService).Login: err = global.App.DB.Where("mobile = ?", params.Mobile).First(&user).Error
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/app/controllers/app/auth.go:19 (0x1b0170b)
+	Login: if err, user := services.UserService.Login(form); err != nil {
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0d28)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1adf785)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1add2a6)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adcd7b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3b76)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bd938)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+
+
+[31m2024/02/01 15:09:15 [Recovery] 2024/02/01 - 15:09:15 panic recovered:
+GET /api/test HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Postman-Token: d8e17fe8-d16b-4891-b873-08231452d732
+Referer: http://localhost:8888/api/test/
+User-Agent: PostmanRuntime/7.28.4
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x103f5dd)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x1058184)
+	sigpanic: panicmem()
+/Users/xiaocdou/go/src/www/go_study/vendor/gorm.io/gorm/finisher_api.go:18 (0x18863cf)
+	(*DB).Create: if db.CreateBatchSize > 0 {
+/Users/xiaocdou/go/src/www/go_study/internal/gin-study/routes/api.go:34 (0x1b2616e)
+	SetApiGroupRoutes.func2: err := global.App.DB.Create(&tableTest).Error
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/recovery.go:102 (0x1ae0d28)
+	CustomRecoveryWithWriter.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/logger.go:240 (0x1adf785)
+	LoggerWithConfig.func1: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/context.go:174 (0x1acd8d9)
+	(*Context).Next: c.handlers[c.index](c)
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:620 (0x1add2a6)
+	(*Engine).handleHTTPRequest: c.Next()
+/Users/xiaocdou/go/src/www/go_study/vendor/github.com/gin-gonic/gin/gin.go:576 (0x1adcd7b)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x14c3b76)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x14bd938)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x1075d60)
+	goexit: BYTE	$0x90	// NOP
+[0m
+{"level":"local.info","ts":"[2024-02-01 16:07:59.976]","caller":"gin-study/main.go:14","msg":"log init success!"}
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.092ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.550ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.798ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.958ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.390ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:07:59 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.436ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.794ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.467ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.666ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.548ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_mobile'
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.836ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.553ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.591ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[1.004ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.527ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.706ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'go_test' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.997ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.314ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[3.924ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.788ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'go_test' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[0.791ms] [rows:-] SELECT DATABASE()
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.195ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'go_test%' ORDER BY SCHEMA_NAME='go_test' DESC,SCHEMA_NAME limit 1
+
+2024/02/01 16:08:00 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/bootstrap/db.go:63
+[2.388ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'go_test' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+{"level":"local.error","ts":"[2024-02-01 16:08:00.041]","caller":"bootstrap/redis.go:19","msg":"Redis connect ping failed, err:","err":"dial tcp 127.0.0.1:6379: connect: connection refused"}
+
+2024/02/01 16:08:05 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/routes/api.go:33
+[8.133ms] [rows:1] INSERT INTO `table_test` (`order_id`,`mileage_number`,`operation_type`,`operation_user`,`operation_number`,`send_status`,`operation_datetime`,`status`) VALUES (12,100,'alone','xiao',2,'ongoing','2024-02-01 16:08:05.87','sms')
+
+2024/02/01 16:08:07 /Users/xiaocdou/go/src/www/go_study/internal/gin-study/routes/api.go:33
+[9.317ms] [rows:1] INSERT INTO `table_test` (`order_id`,`mileage_number`,`operation_type`,`operation_user`,`operation_number`,`send_status`,`operation_datetime`,`status`) VALUES (12,100,'alone','xiao',2,'ongoing','2024-02-01 16:08:07.698','sms')
