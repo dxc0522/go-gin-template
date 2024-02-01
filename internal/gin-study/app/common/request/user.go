@@ -27,3 +27,15 @@ func (login Login) GetMessages() ValidatorMessages {
 		"password.required": "用户密码不能为空",
 	}
 }
+
+type ToDo struct {
+	Label string `form:"label" json:"label" binding:"required"`
+	Value string `form:"value" json:"value" binding:"required"`
+}
+
+func (login Login) GetToDoMessages() ValidatorMessages {
+	return ValidatorMessages{
+		"label.required": "label can`t be empty",
+		"value.mobile":   "value can`t be empty",
+	}
+}

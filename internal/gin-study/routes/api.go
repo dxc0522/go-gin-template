@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-gin-template/internal/gin-study/app/common/request"
+	"github.com/go-gin-template/internal/gin-study/app/common/response"
 	"github.com/go-gin-template/internal/gin-study/app/controllers/app"
 	"github.com/go-gin-template/internal/gin-study/app/controllers/common"
 	"github.com/go-gin-template/internal/gin-study/app/middleware"
@@ -20,15 +21,21 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 		log.Println("ping pong")
 		c.String(http.StatusOK, "pong")
 	})
-	router.GET("/test", func(c *gin.Context) {
-		tableTest := model.Users{
-			Name: "dour",
+	router.POST("/test", func(c *gin.Context) {
+		var form request.ToDo
+		if err := c.ShouldBindJSON(&form); err != nil {
+			response.ValidateFail(c, request.GetErrorMsg(form, err))
+			return
 		}
-		err := global.App.DB.Create(&tableTest).Error
+		record := model.ToDo{
+			Label: form.Label,
+			Value: form.Value,
+		}
+		err := global.App.DB.Create(&record).Error
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, err.Error())
 		} else {
-			c.JSON(http.StatusOK, tableTest)
+			c.JSON(http.StatusOK, record)
 		}
 	})
 	router.POST("/user/register", func(c *gin.Context) {

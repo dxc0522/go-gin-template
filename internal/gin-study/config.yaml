@@ -7,7 +7,7 @@ database:
   driver: mysql # 数据库驱动
   host: 127.0.0.1 # 域名
   port: 3306 # 端口号
-  database: go_test # 数据库名称
+  database: local # 数据库名称
   username: root # 用户名
   password: 123456 # 密码
   charset: utf8mb4 # 编码格式
